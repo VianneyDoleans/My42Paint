@@ -94,5 +94,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Songs" />
+    <Folder Include="Assets\Videos" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Images\paint.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
