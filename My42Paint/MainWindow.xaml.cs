@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace My42Paint
@@ -20,9 +10,32 @@ namespace My42Paint
     /// </summary>
     public partial class MainWindow : Window
     {
+        Point currentPoint = new Point();    
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private new void MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+                currentPoint = e.GetPosition(this);
+        }
+
+        private new void MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton != MouseButtonState.Pressed) return;
+            var line = new Line
+            {
+                Stroke = SystemColors.WindowFrameBrush,
+                X1 = currentPoint.X,
+                Y1 = currentPoint.Y,
+                X2 = e.GetPosition(this).X,
+                Y2 = e.GetPosition(this).Y
+            };
+            currentPoint = e.GetPosition(this);
+            DrawingSheet.Children.Add(line);
+            Debug.WriteLine(DrawingSheet.Children.Count);
         }
     }
 }
