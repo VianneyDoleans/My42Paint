@@ -3,12 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:My42Paint"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Canvas Name="DrawingSheet" MouseDown="MouseDown" MouseMove="MouseMove">
-        <Canvas.Background>
-            <SolidColorBrush Color="#8DFF00" Opacity="0"/>
-        </Canvas.Background>
-    </Canvas>
+
+    <DockPanel>
+        <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
+            <RadioButton Name="RectangleButton" 
+                         Content="Rectangle" 
+                         Height="50" 
+                         Width="80" 
+                         BorderBrush="Black" 
+                         GroupName="ShapeGroup" 
+                         Click="RectangleButton_OnClick"/>
+            
+            <RadioButton Name="LineButton" 
+                Content="Line" 
+                Height="50" 
+                Width="80" 
+                BorderBrush="Black" 
+                GroupName="ShapeGroup" 
+                Click="LineButton_OnClick"
+                IsChecked="True"/>
+            
+            <RadioButton Name="EllipseButton" 
+                Content="Ellipse" 
+                Height="50" 
+                Width="80" 
+                BorderBrush="Black" 
+                GroupName="ShapeGroup" 
+                Click="EllipseButton_OnClick"/>
+        </ToolBar>
+        
+        <Canvas Name="DrawingSheet" 
+                Background="AliceBlue" 
+                MouseDown="DrawingSheet_OnMouseDown" 
+                MouseUp="DrawingSheet_OnMouseUp" 
+                MouseMove="DrawingSheet_OnMouseMove"/>
+    </DockPanel>
 </Window>
