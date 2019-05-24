@@ -26,26 +26,31 @@ namespace My42Paint
             InitializeComponent();
         }
 
+        //Select the shape used by user
         private void EllipseButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentShape = MyShape.Ellipse;
         }
 
+        //Select the shape used by user
         private void LineButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentShape = MyShape.Line;
         }
 
+        //Select the shape used by user
         private void RectangleButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentShape = MyShape.Rectangle;
         }
 
+        //Get the position of the mouse when the user press the left button mouse and get the position
         private void DrawingSheet_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             _start = e.GetPosition(this);
         }
 
+        //Create and add a line oject to the canvas to draw a line
         private void DrawLine()
         {
             var line = new Line
@@ -60,6 +65,7 @@ namespace My42Paint
             DrawingSheet.Children.Add(line);
         }
 
+        //Create and add a rectangle oject to the canvas to draw a rectangle
         private void DrawRectangle()
         {
             var rectangle = new Rectangle
@@ -91,6 +97,7 @@ namespace My42Paint
             DrawingSheet.Children.Add(rectangle);
         }
 
+        //Create and add a ellipse oject to the canvas to draw a ellipse
         private void DrawEllipse()
         {
             var ellipse = new Ellipse
@@ -123,6 +130,7 @@ namespace My42Paint
             DrawingSheet.Children.Add(ellipse);
         }
 
+        //Draw the shape selected once the mouse left button is release
         private void DrawingSheet_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             switch (_currentShape)
@@ -141,6 +149,8 @@ namespace My42Paint
             }
         }
 
+        // Define the postion of the end of the drawing by getting 
+        //the position of the mouse on the canvas when she is moving
         private void DrawingSheet_OnMouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
