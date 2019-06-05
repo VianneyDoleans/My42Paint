@@ -21,6 +21,7 @@ namespace My42Paint.Source
         private enum Tools
         {
             Brush,
+            Eraser,
             Rectangle,
             Ellipse,
             Line
@@ -32,10 +33,35 @@ namespace My42Paint.Source
             _shapeDrawer = new ShapeDrawer(_color);
         }
 
-        private void BrushButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Brush; }
-        private void EllipseButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Ellipse; }
-        private void LineButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Line; }
-        private void RectangleButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Rectangle; }
+        private void BrushButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.Brush;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.Ink;
+        }
+
+        private void EraserButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.Eraser;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.EraseByPoint;
+        }
+
+        private void EllipseButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.Ellipse;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
+        }
+
+        private void LineButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.Line;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
+        }
+
+        private void RectangleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.Rectangle;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
+        }
 
         private void DrawingSheet_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
