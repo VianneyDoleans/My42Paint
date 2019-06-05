@@ -1,4 +1,4 @@
-﻿<Window x:Class="My42Paint.MainWindow"
+﻿<Window x:Class="My42Paint.Source.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,36 +8,36 @@
 
     <DockPanel>
         <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
-            <RadioButton Name="RectangleButton" 
-                         Content="Rectangle" 
-                         Height="50" 
-                         Width="80" 
-                         BorderBrush="Black" 
-                         GroupName="ShapeGroup" 
-                         Click="RectangleButton_OnClick"/>
-            
-            <RadioButton Name="LineButton" 
-                Content="Line" 
-                Height="50" 
-                Width="80" 
-                BorderBrush="Black" 
-                GroupName="ShapeGroup" 
-                Click="LineButton_OnClick"
-                IsChecked="True"/>
-            
-            <RadioButton Name="EllipseButton" 
-                Content="Ellipse" 
-                Height="50" 
-                Width="80" 
-                BorderBrush="Black" 
-                GroupName="ShapeGroup" 
-                Click="EllipseButton_OnClick"/>
+            <RadioButton Name="RectangleButton"
+                         Content="Rectangle"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="RectangleButton_OnClick" />
+
+            <RadioButton Name="LineButton"
+                         Content="Line"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="LineButton_OnClick"
+                         IsChecked="True" />
+
+            <RadioButton Name="EllipseButton"
+                         Content="Ellipse"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="EllipseButton_OnClick" />
         </ToolBar>
-        
-        <Canvas Name="DrawingSheet" 
-                Background="AliceBlue" 
-                MouseDown="DrawingSheet_OnMouseDown" 
-                MouseUp="DrawingSheet_OnMouseUp" 
-                MouseMove="DrawingSheet_OnMouseMove"/>
+
+        <InkCanvas Name="DrawingSheet"
+                Background="AliceBlue"
+                PreviewMouseDown="DrawingSheet_OnMouseDown"
+                PreviewMouseUp="DrawingSheet_OnMouseUp"
+                PreviewMouseMove="DrawingSheet_OnMouseMove" />
     </DockPanel>
 </Window>
