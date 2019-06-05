@@ -13,13 +13,14 @@ namespace My42Paint.Source
     public partial class MainWindow
     {
         private ShapeDrawer _shapeDrawer;
-        private Tools _currentTools = Tools.Line;
+        private Tools _currentTools = Tools.Brush;
         private Point _start;
         private Point _end;
         private Color _color = Colors.Blue;
         
         private enum Tools
         {
+            Brush,
             Rectangle,
             Ellipse,
             Line
@@ -30,20 +31,19 @@ namespace My42Paint.Source
             InitializeComponent();
             _shapeDrawer = new ShapeDrawer(_color);
         }
-        
+
+        private void BrushButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Brush; }
         private void EllipseButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Ellipse; }
         private void LineButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Line; }
-
-        private void RectangleButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            _currentTools = Tools.Rectangle;
-            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
-        }
+        private void RectangleButton_OnClick(object sender, RoutedEventArgs e) { _currentTools = Tools.Rectangle; }
 
         private void DrawingSheet_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             _start = e.GetPosition(this); 
-            DrawingSheet.DefaultDrawingAttributes.Color = Colors.Transparent;
+
+            // Hide cursor when not using brush
+            if (_currentTools != Tools.Brush)
+                DrawingSheet.DefaultDrawingAttributes.Color = Colors.Transparent;
         }
 
         private void DrawingSheet_OnMouseUp(object sender, MouseButtonEventArgs e)
