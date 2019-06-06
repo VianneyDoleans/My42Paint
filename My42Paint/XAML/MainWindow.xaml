@@ -26,6 +26,14 @@
                          GroupName="ShapeGroup"
                          Click="EraserButton_OnClick" />
 
+            <RadioButton Name="ColorPickerButton"
+                         Content="Color Picker"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="ColorPickerButton_OnClick" />
+
             <RadioButton Name="RectangleButton"
                          Content="Rectangle"
                          Height="50"

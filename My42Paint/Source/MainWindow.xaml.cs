@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -24,6 +25,7 @@ namespace My42Paint.Source
             Brush,
             Eraser,
             Select,
+            ColorPicker,
             Rectangle,
             Line
         }
@@ -32,6 +34,7 @@ namespace My42Paint.Source
         {
             InitializeComponent();
             _shapeDrawer = new ShapeDrawer(StartingColor);
+            ColorPicker.SelectedColor = StartingColor;
         }
 
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
@@ -45,7 +48,13 @@ namespace My42Paint.Source
             _currentTools = Tools.Eraser;
             DrawingSheet.EditingMode = InkCanvasEditingMode.EraseByPoint;
         }
-        
+
+        private void ColorPickerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.ColorPicker;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
+        }
+
         private void LineButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentTools = Tools.Line;
@@ -81,6 +90,24 @@ namespace My42Paint.Source
         {
             RemoveTmpDrawOnCanvas();
             DrawOnCanvas();
+
+            if (_currentTools == Tools.ColorPicker)
+            {
+                StrokeCollection sc = DrawingSheet.Strokes;
+                foreach (Stroke stroke in sc)
+                {
+                    StylusPointCollection pts = stroke.StylusPoints;
+                    foreach (StylusPoint stylusPoint in pts)
+                    {
+                        if ((int)(_end.X) == (int)(stylusPoint.X) && (int)(_end.Y - 50) == (int)(stylusPoint.Y))
+                        {
+                            ColorPicker.SelectedColor = stroke.DrawingAttributes.Color;
+                            return;
+                        }
+                    }
+                }
+            }
+
             // Reset color when not using brush
             if (_currentTools != Tools.Brush)
                 DrawingSheet.DefaultDrawingAttributes.Color = _prevColor;
