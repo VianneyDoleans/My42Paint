@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,7 +17,8 @@ namespace My42Paint.Source
         private Tools _currentTools = Tools.Brush;
         private Point _start;
         private Point _end;
-        private Color _color = Colors.Blue;
+        private static readonly Color STARTING_COLOR = Colors.Black;
+        private Color _prevColor = STARTING_COLOR;
         
         private enum Tools
         {
@@ -30,7 +32,8 @@ namespace My42Paint.Source
         public MainWindow()
         {
             InitializeComponent();
-            _shapeDrawer = new ShapeDrawer(_color);
+            _shapeDrawer = new ShapeDrawer(STARTING_COLOR);
+            ColorPicker.SelectedColor = STARTING_COLOR;
         }
 
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
@@ -63,20 +66,31 @@ namespace My42Paint.Source
             DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
         }
 
+        private void ColorPicker_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (ColorPicker.SelectedColor.HasValue && DrawingSheet != null)
+                DrawingSheet.DefaultDrawingAttributes.Color = ColorPicker.SelectedColor.GetValueOrDefault(Colors.Red);
+        }
+
         private void DrawingSheet_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            _start = e.GetPosition(this); 
+            _start = e.GetPosition(this);
 
             // Hide cursor when not using brush
             if (_currentTools != Tools.Brush)
+            {
+                _prevColor = DrawingSheet.DefaultDrawingAttributes.Color;
                 DrawingSheet.DefaultDrawingAttributes.Color = Colors.Transparent;
+            }
         }
 
         private void DrawingSheet_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             RemoveTmpDrawOnCanvas();
             DrawOnCanvas();
-            DrawingSheet.DefaultDrawingAttributes.Color = Colors.Black;
+            // Reset color when not using brush
+            if (_currentTools != Tools.Brush)
+                DrawingSheet.DefaultDrawingAttributes.Color = _prevColor;
         }
         
         private void DrawingSheet_OnMouseMove(object sender, MouseEventArgs e)
