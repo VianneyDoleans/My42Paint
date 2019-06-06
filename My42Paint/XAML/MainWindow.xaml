@@ -8,6 +8,23 @@
 
     <DockPanel>
         <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
+            <RadioButton Name="BrushButton"
+                         Content="Brush"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="BrushButton_OnClick"
+                         IsChecked="True" />
+
+            <RadioButton Name="EraserButton"
+                         Content="Eraser"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="EraserButton_OnClick" />
+
             <RadioButton Name="RectangleButton"
                          Content="Rectangle"
                          Height="50"
@@ -22,8 +39,7 @@
                          Width="80"
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
-                         Click="LineButton_OnClick"
-                         IsChecked="True" />
+                         Click="LineButton_OnClick" />
 
             <RadioButton Name="EllipseButton"
                          Content="Ellipse"
