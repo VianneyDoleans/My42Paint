@@ -22,8 +22,8 @@ namespace My42Paint.Source
         {
             Brush,
             Eraser,
+            Select,
             Rectangle,
-            Ellipse,
             Line
         }
 
@@ -43,12 +43,6 @@ namespace My42Paint.Source
         {
             _currentTools = Tools.Eraser;
             DrawingSheet.EditingMode = InkCanvasEditingMode.EraseByPoint;
-        }
-
-        private void EllipseButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            _currentTools = Tools.Ellipse;
-            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
         }
 
         private void LineButton_OnClick(object sender, RoutedEventArgs e)
@@ -115,12 +109,15 @@ namespace My42Paint.Source
                 case Tools.Rectangle:
                     _shapeDrawer.DrawRectangle(_start, _end, DrawingSheet, preview);
                     break;
-                case Tools.Ellipse:
-                    _shapeDrawer.DrawEllipse(_start, _end, DrawingSheet, preview);
-                    break;
                 default:
                     return;
             }
+        }
+
+        private void Select_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.Select;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.Select;
         }
     }
 }

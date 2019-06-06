@@ -1,6 +1,7 @@
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -16,17 +17,8 @@ namespace My42Paint.Source
             _color = color;
         }
 
-        public void DrawLine(Point start, Point end, InkCanvas drawingSheet, bool preview = false)
+        private void DrawPreviewLine(Point start, Point end, Brush color, InkCanvas drawingSheet)
         {
-            var color = DefineColor(preview);
-            var tag = preview;
-            if(!preview)
-                Debug.WriteLine("je passe ici");
-            else
-            {
-                Debug.WriteLine("je passe la");
-            }
-            
             var line = new Line
             {
                 Stroke = color,
@@ -35,21 +27,40 @@ namespace My42Paint.Source
                 X2 = end.X,
                 Y1 = start.Y - 50,
                 Y2 = end.Y - 50,
-                Tag = tag
+                Tag = true
             };
             drawingSheet.Children.Add(line);
         }
-        
-        public void DrawRectangle(Point start, Point end, InkCanvas drawingSheet, bool preview = false)
+
+        private void DrawInkCanvasLine(Point start, Point end, InkCanvas drawingSheet)
+        {
+            var pts = new StylusPointCollection();
+            pts.Add(new StylusPoint(start.X, start.Y - 50));
+            pts.Add(new StylusPoint(end.X, end.Y - 50));
+
+            var s = new Stroke(pts);
+            s.DrawingAttributes.Color = _color;
+
+            drawingSheet.Strokes.Add(s);
+        }
+
+        public void DrawLine(Point start, Point end, InkCanvas drawingSheet, bool preview = false)
         {
             var color = DefineColor(preview);
-            var tag = preview;
-            
+            if (preview)
+                DrawPreviewLine(start, end, color, drawingSheet);
+            else
+                DrawInkCanvasLine(start, end, drawingSheet);
+        }
+
+
+        private void DrawPreviewRectangle(Point start, Point end, Brush color, InkCanvas drawingSheet)
+        {
             var rectangle = new Rectangle
             {
                 Stroke = color,
                 StrokeThickness = _strokeThickness,
-                Tag = tag
+                Tag = true
             };
             if (end.X >= start.X)
             {
@@ -73,43 +84,31 @@ namespace My42Paint.Source
             }
             drawingSheet.Children.Add(rectangle);
         }
+
+        private void DrawInkCanvasRectangle(Point start, Point end, InkCanvas drawingSheet)
+        {
+            var pts = new StylusPointCollection();
+            pts.Add(new StylusPoint(start.X, start.Y - 50));
+            pts.Add(new StylusPoint(end.X, start.Y - 50));
+            pts.Add(new StylusPoint(end.X, end.Y - 50));
+            pts.Add(new StylusPoint(start.X, end.Y - 50));
+            pts.Add(new StylusPoint(start.X, start.Y - 50));
+            
+            var s = new Stroke(pts);
+            s.DrawingAttributes.Color = _color;
+
+            drawingSheet.Strokes.Add(s);
+        }
         
-        public void DrawEllipse(Point start, Point end, InkCanvas drawingSheet, bool preview = false)
+        public void DrawRectangle(Point start, Point end, InkCanvas drawingSheet, bool preview = false)
         {
             var color = DefineColor(preview);
-            var tag = preview;
-            
-            var ellipse = new Ellipse
-            {
-                Stroke = color,
-                StrokeThickness = _strokeThickness,
-                Height = 10,
-                Width = 10,
-                Tag = tag
-            };
-            if (end.X >= start.X)
-            {
-                ellipse.SetValue(InkCanvas.LeftProperty, start.X);
-                ellipse.Width = end.X - start.X;
-            }
+            if (preview)
+                DrawPreviewRectangle(start, end, color, drawingSheet);
             else
-            {
-                ellipse.SetValue(InkCanvas.LeftProperty, end.X);
-                ellipse.Width = start.X - end.X;
-            }
-            if (end.Y >= start.Y)
-            {
-                ellipse.SetValue(InkCanvas.TopProperty, start.Y - 50);
-                ellipse.Height = end.Y - start.Y;
-            }
-            else
-            {
-                ellipse.SetValue(InkCanvas.TopProperty, end.Y - 50);
-                ellipse.Height = start.Y - end.Y;
-            }
-            drawingSheet.Children.Add(ellipse);
+                DrawInkCanvasRectangle(start, end, drawingSheet);
         }
-
+        
         private SolidColorBrush DefineColor(bool preview)
         {
             return preview ? new SolidColorBrush(_color) { Opacity = 0.2 } : new SolidColorBrush(_color);

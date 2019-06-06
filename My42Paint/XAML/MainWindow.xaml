@@ -40,14 +40,14 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="LineButton_OnClick" />
-
-            <RadioButton Name="EllipseButton"
-                         Content="Ellipse"
+            
+            <RadioButton Name="Select"
+                         Content="Select"
                          Height="50"
                          Width="80"
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
-                         Click="EllipseButton_OnClick" />
+                         Click="Select_OnClick" />
         </ToolBar>
 
         <InkCanvas Name="DrawingSheet"
