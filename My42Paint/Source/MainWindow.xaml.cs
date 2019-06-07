@@ -84,6 +84,19 @@ namespace My42Paint.Source
             }
         }
 
+        private void InvertFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                color.R = (byte)(255 - color.R);
+                color.G = (byte)(255 - color.G);
+                color.B = (byte)(255 - color.B);
+                stroke.DrawingAttributes.Color = color;
+            }
+        }
+
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentTools = Tools.Brush;
