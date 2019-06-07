@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace My42Paint.Source
@@ -102,11 +104,17 @@ namespace My42Paint.Source
             
             foreach (UIElement drawingSheetChild in DrawingSheet.Children)
             {
-                var shape = (Shape)drawingSheetChild;
-                if ((bool)shape.Tag)
+                Shape shape = null;
+                try
+                {
+                    shape = (Shape)drawingSheetChild;
+                }
+                catch (Exception) { 
+                    // ignored
+                }
+                if (shape != null && (bool)shape.Tag)
                     toRemove.Add(drawingSheetChild);
             }
-
             foreach (var uiElement in toRemove)
                 DrawingSheet.Children.Remove(uiElement);
             toRemove.Clear();
@@ -131,6 +139,14 @@ namespace My42Paint.Source
         {
             _currentTools = Tools.Select;
             DrawingSheet.EditingMode = InkCanvasEditingMode.Select;
+        }
+
+     
+        private void LoadImage(object sender, RoutedEventArgs e)
+        {
+            var image = new Image();
+            image.Source = new BitmapImage(new Uri(@"C:\Users\Clement\Pictures\1427428321_large.jpg"));
+            DrawingSheet.Children.Add(image);
         }
     }
 }

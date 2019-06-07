@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:source="clr-namespace:My42Paint.Source"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -49,6 +50,13 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="Select_OnClick" />
+            <RadioButton Name="Image"
+                         Content="Image"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="LoadImage" />
         </ToolBar>
 
         <ToolBar Name="ColorToolbar" DockPanel.Dock="Right">
@@ -56,7 +64,6 @@
                               VerticalAlignment="Top"
                               SelectedColorChanged="ColorPicker_OnSelectedColorChanged"/>
         </ToolBar>
-
         <InkCanvas Name="DrawingSheet"
                 Background="AliceBlue"
                 PreviewMouseDown="DrawingSheet_OnMouseDown"
