@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -35,6 +37,20 @@ namespace My42Paint.Source
             InitializeComponent();
             _shapeDrawer = new ShapeDrawer(StartingColor);
             ColorPicker.SelectedColor = StartingColor;
+        }
+
+        private void BlackAndWhiteFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                double grayscale = (color.R + color.G + color.B) / 3.0;
+                if (grayscale < 128)
+                    stroke.DrawingAttributes.Color = Colors.Black;
+                else
+                    stroke.DrawingAttributes.Color = Colors.White;
+            }
         }
 
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
