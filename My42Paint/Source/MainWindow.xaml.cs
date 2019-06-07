@@ -41,11 +41,11 @@ namespace My42Paint.Source
 
         private void BlackAndWhiteFilter_OnClick(object sender, RoutedEventArgs e)
         {
-            StrokeCollection sc = DrawingSheet.Strokes;
+            var sc = DrawingSheet.Strokes;
             foreach (Stroke stroke in sc)
             {
-                Color color = stroke.DrawingAttributes.Color;
-                double grayscale = (color.R + color.G + color.B) / 3.0;
+                var color = stroke.DrawingAttributes.Color;
+                var grayscale = (color.R + color.G + color.B) / 3.0;
                 if (grayscale < 128)
                     stroke.DrawingAttributes.Color = Colors.Black;
                 else
@@ -58,8 +58,8 @@ namespace My42Paint.Source
             StrokeCollection sc = DrawingSheet.Strokes;
             foreach (Stroke stroke in sc)
             {
-                Color color = stroke.DrawingAttributes.Color;
-                double grayscale = (color.R + color.G + color.B) / 3.0;
+                var color = stroke.DrawingAttributes.Color;
+                var grayscale = (color.R + color.G + color.B) / 3.0;
                 color.R = (byte)grayscale;
                 color.G = (byte)grayscale;
                 color.B = (byte)grayscale;
@@ -72,24 +72,24 @@ namespace My42Paint.Source
             StrokeCollection sc = DrawingSheet.Strokes;
             foreach (Stroke stroke in sc)
             {
-                Color color = stroke.DrawingAttributes.Color;
-                Color new_color = new Color
+                var color = stroke.DrawingAttributes.Color;
+                var newColor = new Color
                 {
                     R = Math.Min((byte)((color.R * 0.393) + (color.G * 0.769) + (color.B * 0.189)), (byte)255),
                     G = Math.Min((byte)((color.R * 0.349) + (color.G * 0.686) + (color.B * 0.168)), (byte)255),
                     B = Math.Min((byte)((color.R * 0.272) + (color.G * 0.534) + (color.B * 0.131)), (byte)255),
                     A = color.A
                 };
-                stroke.DrawingAttributes.Color = new_color;
+                stroke.DrawingAttributes.Color = newColor;
             }
         }
 
         private void InvertFilter_OnClick(object sender, RoutedEventArgs e)
         {
-            StrokeCollection sc = DrawingSheet.Strokes;
-            foreach (Stroke stroke in sc)
+            var sc = DrawingSheet.Strokes;
+            foreach (var stroke in sc)
             {
-                Color color = stroke.DrawingAttributes.Color;
+                var color = stroke.DrawingAttributes.Color;
                 color.R = (byte)(255 - color.R);
                 color.G = (byte)(255 - color.G);
                 color.B = (byte)(255 - color.B);
@@ -153,13 +153,13 @@ namespace My42Paint.Source
 
             if (_currentTools == Tools.ColorPicker)
             {
-                StrokeCollection sc = DrawingSheet.Strokes;
-                foreach (Stroke stroke in sc)
+                var sc = DrawingSheet.Strokes;
+                foreach (var stroke in sc)
                 {
-                    StylusPointCollection pts = stroke.StylusPoints;
-                    foreach (StylusPoint stylusPoint in pts)
+                    var pts = stroke.StylusPoints;
+                    foreach (var stylusPoint in pts)
                     {
-                        if ((int)(_end.X) == (int)(stylusPoint.X) && (int)(_end.Y - 50) == (int)(stylusPoint.Y))
+                        if ((int)_end.X == (int)stylusPoint.X && (int)(_end.Y - 50) == (int)stylusPoint.Y)
                         {
                             ColorPicker.SelectedColor = stroke.DrawingAttributes.Color;
                             return;
@@ -229,8 +229,10 @@ namespace My42Paint.Source
      
         private void LoadImage(object sender, RoutedEventArgs e)
         {
-            var image = new Image();
-            image.Source = new BitmapImage(new Uri(@"C:\Users\Clement\Pictures\1427428321_large.jpg"));
+            var image = new Image
+            {
+                Source = new BitmapImage(new Uri(@"C:\Users\Clement\Pictures\1427428321_large.jpg"))
+            };
             DrawingSheet.Children.Add(image);
         }
     }
