@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -26,6 +27,7 @@ namespace My42Paint.Source
             Brush,
             Eraser,
             Select,
+            ColorPicker,
             Rectangle,
             Line
         }
@@ -34,6 +36,65 @@ namespace My42Paint.Source
         {
             InitializeComponent();
             _shapeDrawer = new ShapeDrawer(StartingColor);
+            ColorPicker.SelectedColor = StartingColor;
+        }
+
+        private void BlackAndWhiteFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                double grayscale = (color.R + color.G + color.B) / 3.0;
+                if (grayscale < 128)
+                    stroke.DrawingAttributes.Color = Colors.Black;
+                else
+                    stroke.DrawingAttributes.Color = Colors.White;
+            }
+        }
+
+        private void GrayscaleFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                double grayscale = (color.R + color.G + color.B) / 3.0;
+                color.R = (byte)grayscale;
+                color.G = (byte)grayscale;
+                color.B = (byte)grayscale;
+                stroke.DrawingAttributes.Color = color;
+            }
+        }
+
+        private void SepiaFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                Color new_color = new Color
+                {
+                    R = Math.Min((byte)((color.R * 0.393) + (color.G * 0.769) + (color.B * 0.189)), (byte)255),
+                    G = Math.Min((byte)((color.R * 0.349) + (color.G * 0.686) + (color.B * 0.168)), (byte)255),
+                    B = Math.Min((byte)((color.R * 0.272) + (color.G * 0.534) + (color.B * 0.131)), (byte)255),
+                    A = color.A
+                };
+                stroke.DrawingAttributes.Color = new_color;
+            }
+        }
+
+        private void InvertFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                color.R = (byte)(255 - color.R);
+                color.G = (byte)(255 - color.G);
+                color.B = (byte)(255 - color.B);
+                stroke.DrawingAttributes.Color = color;
+            }
         }
 
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
@@ -47,7 +108,13 @@ namespace My42Paint.Source
             _currentTools = Tools.Eraser;
             DrawingSheet.EditingMode = InkCanvasEditingMode.EraseByPoint;
         }
-        
+
+        private void ColorPickerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _currentTools = Tools.ColorPicker;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
+        }
+
         private void LineButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentTools = Tools.Line;
@@ -83,6 +150,24 @@ namespace My42Paint.Source
         {
             RemoveTmpDrawOnCanvas();
             DrawOnCanvas();
+
+            if (_currentTools == Tools.ColorPicker)
+            {
+                StrokeCollection sc = DrawingSheet.Strokes;
+                foreach (Stroke stroke in sc)
+                {
+                    StylusPointCollection pts = stroke.StylusPoints;
+                    foreach (StylusPoint stylusPoint in pts)
+                    {
+                        if ((int)(_end.X) == (int)(stylusPoint.X) && (int)(_end.Y - 50) == (int)(stylusPoint.Y))
+                        {
+                            ColorPicker.SelectedColor = stroke.DrawingAttributes.Color;
+                            return;
+                        }
+                    }
+                }
+            }
+
             // Reset color when not using brush
             if (_currentTools != Tools.Brush)
                 DrawingSheet.DefaultDrawingAttributes.Color = _prevColor;

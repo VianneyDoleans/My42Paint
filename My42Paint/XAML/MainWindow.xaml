@@ -9,6 +9,15 @@
         Title="MainWindow" Height="450" Width="800">
 
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Filters">
+                <MenuItem Header="_Black and White" Click="BlackAndWhiteFilter_OnClick"/>
+                <MenuItem Header="_Grayscale" Click="GrayscaleFilter_OnClick"/>
+                <MenuItem Header="_Sepia" Click="SepiaFilter_OnClick"/>
+                <MenuItem Header="_Invert" Click="InvertFilter_OnClick"/>
+            </MenuItem>
+        </Menu>
+
         <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
             <RadioButton Name="BrushButton"
                          Content="Brush"
@@ -26,6 +35,14 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="EraserButton_OnClick" />
+
+            <RadioButton Name="ColorPickerButton"
+                         Content="Color Picker"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="ColorPickerButton_OnClick" />
 
             <RadioButton Name="RectangleButton"
                          Content="Rectangle"
