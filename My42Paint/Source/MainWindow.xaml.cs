@@ -53,6 +53,20 @@ namespace My42Paint.Source
             }
         }
 
+        private void GrayscaleFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                double grayscale = (color.R + color.G + color.B) / 3.0;
+                color.R = (byte)grayscale;
+                color.G = (byte)grayscale;
+                color.B = (byte)grayscale;
+                stroke.DrawingAttributes.Color = color;
+            }
+        }
+
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentTools = Tools.Brush;
