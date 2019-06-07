@@ -12,6 +12,7 @@
             <MenuItem Header="_Filters">
                 <MenuItem Header="_Black and White" Click="BlackAndWhiteFilter_OnClick"/>
                 <MenuItem Header="_Grayscale" Click="GrayscaleFilter_OnClick"/>
+                <MenuItem Header="_Sepia" Click="SepiaFilter_OnClick"/>
             </MenuItem>
         </Menu>
 

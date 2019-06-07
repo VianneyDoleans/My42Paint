@@ -67,6 +67,23 @@ namespace My42Paint.Source
             }
         }
 
+        private void SepiaFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            StrokeCollection sc = DrawingSheet.Strokes;
+            foreach (Stroke stroke in sc)
+            {
+                Color color = stroke.DrawingAttributes.Color;
+                Color new_color = new Color
+                {
+                    R = Math.Min((byte)((color.R * 0.393) + (color.G * 0.769) + (color.B * 0.189)), (byte)255),
+                    G = Math.Min((byte)((color.R * 0.349) + (color.G * 0.686) + (color.B * 0.168)), (byte)255),
+                    B = Math.Min((byte)((color.R * 0.272) + (color.G * 0.534) + (color.B * 0.131)), (byte)255),
+                    A = color.A
+                };
+                stroke.DrawingAttributes.Color = new_color;
+            }
+        }
+
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
         {
             _currentTools = Tools.Brush;
