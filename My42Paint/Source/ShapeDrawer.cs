@@ -25,8 +25,8 @@ namespace My42Paint.Source
                 StrokeThickness = _strokeThickness,
                 X1 = start.X,
                 X2 = end.X,
-                Y1 = start.Y - 50,
-                Y2 = end.Y - 50,
+                Y1 = start.Y - 70,
+                Y2 = end.Y - 70,
                 Tag = true
             };
             drawingSheet.Children.Add(line);
@@ -35,8 +35,8 @@ namespace My42Paint.Source
         private void DrawInkCanvasLine(Point start, Point end, InkCanvas drawingSheet)
         {
             var pts = new StylusPointCollection();
-            pts.Add(new StylusPoint(start.X, start.Y - 50));
-            pts.Add(new StylusPoint(end.X, end.Y - 50));
+            pts.Add(new StylusPoint(start.X, start.Y - 70));
+            pts.Add(new StylusPoint(end.X, end.Y - 70));
 
             var s = new Stroke(pts);
             s.DrawingAttributes.Color = _color;
@@ -74,12 +74,12 @@ namespace My42Paint.Source
             }
             if (end.Y >= start.Y)
             {
-                rectangle.SetValue(InkCanvas.TopProperty, start.Y - 50);
+                rectangle.SetValue(InkCanvas.TopProperty, start.Y - 70);
                 rectangle.Height = end.Y - start.Y;
             }
             else
             {
-                rectangle.SetValue(InkCanvas.TopProperty, end.Y - 50);
+                rectangle.SetValue(InkCanvas.TopProperty, end.Y - 70);
                 rectangle.Height = start.Y - end.Y;
             }
             drawingSheet.Children.Add(rectangle);
@@ -88,11 +88,11 @@ namespace My42Paint.Source
         private void DrawInkCanvasRectangle(Point start, Point end, InkCanvas drawingSheet)
         {
             var pts = new StylusPointCollection();
-            pts.Add(new StylusPoint(start.X, start.Y - 50));
-            pts.Add(new StylusPoint(end.X, start.Y - 50));
-            pts.Add(new StylusPoint(end.X, end.Y - 50));
-            pts.Add(new StylusPoint(start.X, end.Y - 50));
-            pts.Add(new StylusPoint(start.X, start.Y - 50));
+            pts.Add(new StylusPoint(start.X, start.Y - 70));
+            pts.Add(new StylusPoint(end.X, start.Y - 70));
+            pts.Add(new StylusPoint(end.X, end.Y - 70));
+            pts.Add(new StylusPoint(start.X, end.Y - 70));
+            pts.Add(new StylusPoint(start.X, start.Y - 70));
             
             var s = new Stroke(pts);
             s.DrawingAttributes.Color = _color;

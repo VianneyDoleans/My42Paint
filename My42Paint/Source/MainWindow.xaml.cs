@@ -16,13 +16,13 @@ namespace My42Paint.Source
     public partial class MainWindow
     {
         private ShapeDrawer _shapeDrawer;
-        private Tools _currentTools = Tools.Brush;
+        private InkCanvasTools _currentInkCanvasTools = InkCanvasTools.Brush;
         private Point _start;
         private Point _end;
         private static readonly Color StartingColor = Colors.Black;
         private Color _prevColor = StartingColor;
         
-        private enum Tools
+        private enum InkCanvasTools
         {
             Brush,
             Eraser,
@@ -55,8 +55,8 @@ namespace My42Paint.Source
 
         private void GrayscaleFilter_OnClick(object sender, RoutedEventArgs e)
         {
-            StrokeCollection sc = DrawingSheet.Strokes;
-            foreach (Stroke stroke in sc)
+            var sc = DrawingSheet.Strokes;
+            foreach (var stroke in sc)
             {
                 var color = stroke.DrawingAttributes.Color;
                 var grayscale = (color.R + color.G + color.B) / 3.0;
@@ -69,8 +69,8 @@ namespace My42Paint.Source
 
         private void SepiaFilter_OnClick(object sender, RoutedEventArgs e)
         {
-            StrokeCollection sc = DrawingSheet.Strokes;
-            foreach (Stroke stroke in sc)
+            var sc = DrawingSheet.Strokes;
+            foreach (var stroke in sc)
             {
                 var color = stroke.DrawingAttributes.Color;
                 var newColor = new Color
@@ -99,31 +99,31 @@ namespace My42Paint.Source
 
         private void BrushButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _currentTools = Tools.Brush;
+            _currentInkCanvasTools = InkCanvasTools.Brush;
             DrawingSheet.EditingMode = InkCanvasEditingMode.Ink;
         }
 
         private void EraserButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _currentTools = Tools.Eraser;
+            _currentInkCanvasTools = InkCanvasTools.Eraser;
             DrawingSheet.EditingMode = InkCanvasEditingMode.EraseByPoint;
         }
 
         private void ColorPickerButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _currentTools = Tools.ColorPicker;
+            _currentInkCanvasTools = InkCanvasTools.ColorPicker;
             DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
         }
 
         private void LineButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _currentTools = Tools.Line;
+            _currentInkCanvasTools = InkCanvasTools.Line;
             DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
         }
 
         private void RectangleButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _currentTools = Tools.Rectangle;
+            _currentInkCanvasTools = InkCanvasTools.Rectangle;
             DrawingSheet.EditingMode = InkCanvasEditingMode.GestureOnly;
         }
 
@@ -139,7 +139,7 @@ namespace My42Paint.Source
             _start = e.GetPosition(this);
 
             // Hide cursor when not using brush
-            if (_currentTools != Tools.Brush)
+            if (_currentInkCanvasTools != InkCanvasTools.Brush)
             {
                 _prevColor = DrawingSheet.DefaultDrawingAttributes.Color;
                 DrawingSheet.DefaultDrawingAttributes.Color = Colors.Transparent;
@@ -151,7 +151,7 @@ namespace My42Paint.Source
             RemoveTmpDrawOnCanvas();
             DrawOnCanvas();
 
-            if (_currentTools == Tools.ColorPicker)
+            if (_currentInkCanvasTools == InkCanvasTools.ColorPicker)
             {
                 var sc = DrawingSheet.Strokes;
                 foreach (var stroke in sc)
@@ -169,18 +169,16 @@ namespace My42Paint.Source
             }
 
             // Reset color when not using brush
-            if (_currentTools != Tools.Brush)
+            if (_currentInkCanvasTools != InkCanvasTools.Brush)
                 DrawingSheet.DefaultDrawingAttributes.Color = _prevColor;
         }
         
         private void DrawingSheet_OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                _end = e.GetPosition(this);
-                RemoveTmpDrawOnCanvas();
-                DrawOnCanvas(true);
-            }
+            if (e.LeftButton != MouseButtonState.Pressed) return;
+            _end = e.GetPosition(this);
+            RemoveTmpDrawOnCanvas();
+            DrawOnCanvas(true);
         }
 
         private void RemoveTmpDrawOnCanvas()
@@ -207,12 +205,12 @@ namespace My42Paint.Source
 
         private void DrawOnCanvas(bool preview = false)
         {
-            switch (_currentTools)
+            switch (_currentInkCanvasTools)
             {
-                case Tools.Line:
+                case InkCanvasTools.Line:
                     _shapeDrawer.DrawLine(_start, _end, DrawingSheet, preview);
                     break;
-                case Tools.Rectangle:
+                case InkCanvasTools.Rectangle:
                     _shapeDrawer.DrawRectangle(_start, _end, DrawingSheet, preview);
                     break;
                 default:
@@ -222,7 +220,7 @@ namespace My42Paint.Source
 
         private void Select_OnClick(object sender, RoutedEventArgs e)
         {
-            _currentTools = Tools.Select;
+            _currentInkCanvasTools = InkCanvasTools.Select;
             DrawingSheet.EditingMode = InkCanvasEditingMode.Select;
         }
 
@@ -231,9 +229,14 @@ namespace My42Paint.Source
         {
             var image = new Image
             {
-                Source = new BitmapImage(new Uri(@"C:\Users\Clement\Pictures\1427428321_large.jpg"))
+                Source = new BitmapImage(new Uri(@"../../Assets/Images/ak47.jpg", UriKind.Relative))
             };
             DrawingSheet.Children.Add(image);
+        }
+
+        private void Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            Tools.ExportToPng(new Uri(@"../../test/test.png", UriKind.Relative), DrawingSheet);
         }
     }
 }

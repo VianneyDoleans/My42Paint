@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Width="1200"
+        Height="850"
+        MinWidth="1200"
+        MinHeight="850"
+        MaxWidth="1920"
+        MaxHeight="1080">
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_Filters">
                 <MenuItem Header="_Black and White" Click="BlackAndWhiteFilter_OnClick"/>
                 <MenuItem Header="_Grayscale" Click="GrayscaleFilter_OnClick"/>
@@ -66,6 +72,7 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="Select_OnClick" />
+            
             <RadioButton Name="Image"
                          Content="Image"
                          Height="50"
@@ -73,6 +80,15 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="LoadImage" />
+            
+            <RadioButton Name="Export"
+                         Content="Export"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="Export_OnClick" />
+            
         </ToolBar>
 
         <ToolBar Name="ColorToolbar" DockPanel.Dock="Right">
@@ -82,6 +98,8 @@
         </ToolBar>
         <InkCanvas Name="DrawingSheet"
                 Background="AliceBlue"
+                MaxWidth="1920"
+                MaxHeight="1080"
                 PreviewMouseDown="DrawingSheet_OnMouseDown"
                 PreviewMouseUp="DrawingSheet_OnMouseUp"
                 PreviewMouseMove="DrawingSheet_OnMouseMove" />

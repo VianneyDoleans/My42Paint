@@ -108,8 +108,12 @@
   <ItemGroup>
     <Folder Include="Assets\Songs\" />
     <Folder Include="Assets\Videos\" />
+    <Folder Include="test" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\ak47.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\paint.png" />
     <Content Include="readme.txt" />
   </ItemGroup>

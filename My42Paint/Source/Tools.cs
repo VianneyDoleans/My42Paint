@@ -1,8 +1,13 @@
+using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Size = System.Windows.Size;
 
 namespace My42Paint.Source
 {
@@ -31,5 +36,27 @@ namespace My42Paint.Source
             });
             thread.Start();
         }
+        
+        public static void ExportToPng(Uri path, InkCanvas  canvas)
+        {
+            if (path == null) return;
+            var size = new Size(canvas.ActualWidth, canvas.ActualWidth);
+            // Measure the canvas
+            canvas.Measure(size);
+            // Create a render bitmap and push the canvas to it
+            var renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height,96d,96d, PixelFormats.Pbgra32);
+            renderBitmap.Render(canvas);
+            // Create a file stream for saving image
+            using (var outStream = new FileStream(path.ToString(), FileMode.Create))
+            {
+                // Use png encoder for our data
+                var encoder = new PngBitmapEncoder();
+                // push the rendered bitmap to it
+                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                // save the data to the stream
+                encoder.Save(outStream);
+            }
+        }
+
     }
 }
