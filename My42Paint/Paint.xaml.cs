@@ -260,6 +260,7 @@ namespace My42Paint
             fileDialog.ShowDialog();
             if (fileDialog.FileName == null || fileDialog.FileName.Equals(""))
                 return;
+            // TODO change path here
             String pathFile = "C:/Users/vianneydoleans/Documents/My42Paint/SaveManager/saves.txt";
             using (var writer = new StreamWriter(pathFile, true))
             {
