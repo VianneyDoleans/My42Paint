@@ -30,7 +30,9 @@ namespace SaveManager
             ReadFileSaves("C:/Users/vianneydoleans/Documents/SaveManager-My42Paint/SaveManager/saves.txt");
             localMenu.printFile += new EventHandler(PrintFile);
             localMenu.newFile += new EventHandler(NewFile);
-            localMenu.openFile += new EventHandler(OpenFile); 
+            localMenu.openFile += new EventHandler(OpenFile);
+            localMenu.back += new EventHandler(btnOpenScreen1_Clicked);
+            localMenu.export += new EventHandler(Export);
         }
 
 
@@ -75,6 +77,11 @@ namespace SaveManager
             Console.WriteLine("parent New");
         }
 
+        private void Export(object sender, EventArgs e)
+        {
+            Console.WriteLine("parent export");
+        }
+
         private void PrintFile(object sender, EventArgs e)
         {
             /*PrintDialog printDialog = new PrintDialog();
@@ -84,5 +91,14 @@ namespace SaveManager
             }*/
         }
 
+        public event EventHandler<EventArgs> OpenScreen1;
+
+        private void btnOpenScreen1_Clicked(object sender, EventArgs e)
+        {
+            if (OpenScreen1 != null)
+            {
+                OpenScreen1(this, new EventArgs());
+            }
+        }
     }
 }

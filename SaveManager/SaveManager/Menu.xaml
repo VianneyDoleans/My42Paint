@@ -12,6 +12,8 @@
             <Button x:Name="NewFileButton" Content="New File" Margin="10,10,10,10" VerticalAlignment="Top" Height="42" HorizontalAlignment="Stretch"  Click="NewFile"/>
             <Button x:Name="OpenFileButton" Content="Open File" Margin="10,10,10,10" VerticalAlignment="Top" Height="42" HorizontalAlignment="Stretch"  Click="OpenFile" />
             <Button x:Name="PrintButton" Content="Print" Margin="10,10,10,10" VerticalAlignment="Top" Height="42" HorizontalAlignment="Stretch"  Click="PrintFile" />
+            <Button x:Name="ExportButton" Content="Export" Margin="10,10,10,10" VerticalAlignment="Top" Height="42" HorizontalAlignment="Stretch"  Click="ExportFile" />
+            <Button x:Name="BackButton" Content="Back" Margin="10,10,10,10" VerticalAlignment="Top" Height="42" HorizontalAlignment="Stretch"  Click="BackFile" />
         </StackPanel>
 
     </Grid>

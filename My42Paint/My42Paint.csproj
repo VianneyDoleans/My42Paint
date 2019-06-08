@@ -74,8 +74,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SaveManagerWindow\SaveManagerWindow.xaml.cs">
-      <DependentUpon>SaveManagerWindow.xaml</DependentUpon>
+    <Compile Include="Paint.xaml.cs">
+      <DependentUpon>Paint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Source\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -87,6 +87,9 @@
     </Compile>
     <Compile Include="Source\ShapeDrawer.cs" />
     <Compile Include="Source\Tools.cs" />
+    <Compile Include="Windows.xaml.cs">
+      <DependentUpon>Windows.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -128,7 +131,11 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="SaveManagerWindow\SaveManagerWindow.xaml">
+    <Page Include="Paint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

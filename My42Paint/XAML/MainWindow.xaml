@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:SaveManager="clr-namespace:SaveManager;assembly=SaveManager"
+        xmlns:local="clr-namespace:My42Paint.Window"
         mc:Ignorable="d"
         Title="MainWindow"
         Width="1200"
@@ -13,111 +13,7 @@
         MinHeight="850"
         MaxWidth="1920"
         MaxHeight="1080">
-
-
-    <Window.Resources>
-        <Storyboard x:Key="sbShowLeftMenu" >
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-1150,0,0,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:1" />
-        </Storyboard>
-        <Storyboard x:Key="sbHideLeftMenu">
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-1150,0,0,0" AccelerationRatio=".9" Duration="0:0:1" />
-        </Storyboard>
-
-    </Window.Resources>
-
-    <DockPanel>
-
-        <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal" Margin="-1150,0,0,0">
-            <SaveManager:SaveManage BorderBrush="#AF1719" BorderThickness="1" Width="1150"></SaveManager:SaveManage>
-            <Grid>
-                <Button Name="btnLeftMenuHide" Width="48" Height="48" Click="btnLeftMenuHide_Click" Content="Hide" Visibility="Hidden"/>
-                <Button Name="btnLeftMenuShow" Width="48" Height="48" Click="btnLeftMenuShow_Click" Content="Show"/>
-            </Grid>
-        </StackPanel>
-
-        <Menu DockPanel.Dock="Top" Height="20">
-            <MenuItem Header=" File" Click="SaveManager_OnClick">
-            </MenuItem>
-            <MenuItem Header="_Filters">
-                <MenuItem Header="_Black and White" Click="BlackAndWhiteFilter_OnClick"/>
-                <MenuItem Header="_Grayscale" Click="GrayscaleFilter_OnClick"/>
-                <MenuItem Header="_Sepia" Click="SepiaFilter_OnClick"/>
-                <MenuItem Header="_Invert" Click="InvertFilter_OnClick"/>
-            </MenuItem>
-        </Menu>
-
-        <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
-
-            <RadioButton Name="BrushButton"
-                         Content="Brush"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="BrushButton_OnClick"
-                         IsChecked="True" />
-
-            <RadioButton Name="EraserButton"
-                         Content="Eraser"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="EraserButton_OnClick" />
-
-            <RadioButton Name="ColorPickerButton"
-                         Content="Color Picker"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="ColorPickerButton_OnClick" />
-
-            <RadioButton Name="RectangleButton"
-                         Content="Rectangle"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="RectangleButton_OnClick" />
-
-            <RadioButton Name="LineButton"
-                         Content="Line"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="LineButton_OnClick" />
-            
-            <RadioButton Name="SelectButton"
-                         Content="Select"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="Select_OnClick" />
-
-            <RadioButton Name="LoadImageButton"
-                         Content="Image"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="LoadImage" />
-
-        </ToolBar>
-
-        <ToolBar Name="ColorToolbar" DockPanel.Dock="Right">
-            <xctk:ColorPicker Name="ColorPicker"
-                              VerticalAlignment="Top"
-                              SelectedColorChanged="ColorPicker_OnSelectedColorChanged"/>
-        </ToolBar>
-        <InkCanvas Name="DrawingSheet"
-                Background="AliceBlue"
-                MaxWidth="1920"
-                MaxHeight="1080"
-                PreviewMouseDown="DrawingSheet_OnMouseDown"
-                PreviewMouseUp="DrawingSheet_OnMouseUp"
-                PreviewMouseMove="DrawingSheet_OnMouseMove" />
-    </DockPanel>
+    <Border Name="brdMain">
+        <local:Windows x:Name="MyUserControl"/>
+    </Border>
 </Window>

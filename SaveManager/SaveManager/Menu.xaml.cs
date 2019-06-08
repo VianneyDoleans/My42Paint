@@ -23,6 +23,8 @@ namespace SaveManager
         public event EventHandler printFile;
         public event EventHandler openFile;
         public event EventHandler newFile;
+        public event EventHandler back;
+        public event EventHandler export;
 
         public Menu()
         {
@@ -44,7 +46,19 @@ namespace SaveManager
         private void PrintFile(object sender, RoutedEventArgs e)
         {
             if (printFile != null) printFile(this, EventArgs.Empty);
-            Console.WriteLine("New");
+            Console.WriteLine("print");
+        }
+
+        private void ExportFile(object sender, RoutedEventArgs e)
+        {
+            if (export != null) export(this, EventArgs.Empty);
+            Console.WriteLine("export");
+        }
+
+        private void BackFile(object sender, RoutedEventArgs e)
+        {
+            if (back != null) back(this, EventArgs.Empty);
+            Console.WriteLine("back");
         }
     }
 }

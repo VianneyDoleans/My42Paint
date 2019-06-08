@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace My42Paint.SaveManagerWindow
+namespace testSaveManager
 {
     /// <summary>
-    /// Interaction logic for SaveManagerWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class SaveManagerWindow : Window
+    public partial class MainWindow : Window
     {
-        public SaveManagerWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }
