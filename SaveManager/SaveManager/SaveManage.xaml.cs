@@ -21,18 +21,18 @@ namespace SaveManager
     /// </summary>
     public partial class SaveManage : UserControl
     {
-        String selectedFile;
-
         public event EventHandler<EventArgs> saveFile;
         public event EventHandler<EventArgs> openFile;
         public event EventHandler<EventArgs> newFile;
         public event EventHandler<EventArgs> back;
         public event EventHandler<EventArgs> export;
+        public Dictionary<EventHandler<EventArgs>, String> saves;
 
         public SaveManage()
         {
             InitializeComponent();
-            ReadFileSaves("C:/Users/vianneydoleans/Documents/SaveManager-My42Paint/SaveManager/saves.txt");
+            saves = new Dictionary<EventHandler<EventArgs>, string>();
+            ReadFileSaves();
             localMenu.newFile += new EventHandler(NewFile);
             localMenu.openFile += new EventHandler(OpenFile);
             localMenu.back += new EventHandler(btnOpenScreen1_Clicked);
@@ -41,8 +41,11 @@ namespace SaveManager
         }
 
 
-        public void ReadFileSaves(string pathFile)
+        public void ReadFileSaves()
         {
+            SavesGrid.Children.Clear();
+           // TODO : change path here
+           String pathFile = "C:/Users/vianneydoleans/Documents/My42Paint/SaveManager/saves.txt";
             Console.WriteLine("read file");
             using (StreamReader file = new StreamReader(pathFile))
             {
@@ -50,29 +53,37 @@ namespace SaveManager
 
                 while ((ln = file.ReadLine()) != null)
                 {
-                    addItem(ln);
+                    if (ln != null || ln != "\n")
+                        addItem(ln);
                 }
                 file.Close();
             }
         }
 
+        public void delete(object sender, EventArgs e)
+        {
+
+        }
+
         public void addItem(string path)
         {
-            Save save = new Save();
+            try
+            {
+                Save save = new Save();
+                save.name.Content = path;//System.IO.Path.GetFileNameWithoutExtension(path);
+                save.image.Source = new BitmapImage(new Uri(path, UriKind.Absolute));
+                SavesGrid.Children.Add(save);
+            }
+            catch(Exception)
+            {
 
-            save.name.Content = System.IO.Path.GetFileNameWithoutExtension(path);
-            save.image.Source = new BitmapImage(new Uri(path, UriKind.Absolute));
-            SavesGrid.Children.Add(save);
+            }
+            //save.del += new EventHandler(delete, path);
+            //saves.Add(, save);
         }
 
         protected void OpenFile(object sender, EventArgs e)
         {
-            /*Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
-            Nullable<bool> result = openFileDlg.ShowDialog();
-            if (result == true)
-            {
-                String path = openFileDlg.FileName;
-            }*/
             openFile?.Invoke(this, e);
             Console.WriteLine("parent open");
         }
@@ -91,6 +102,7 @@ namespace SaveManager
 
         private void Export(object sender, EventArgs e)
         {
+            ReadFileSaves();
             Console.WriteLine("parent export");
             export?.Invoke(this, e);
         }

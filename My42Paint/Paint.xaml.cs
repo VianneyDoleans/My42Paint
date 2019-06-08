@@ -260,6 +260,12 @@ namespace My42Paint
             fileDialog.ShowDialog();
             if (fileDialog.FileName == null || fileDialog.FileName.Equals(""))
                 return;
+            String pathFile = "C:/Users/vianneydoleans/Documents/My42Paint/SaveManager/saves.txt";
+            using (var writer = new StreamWriter(pathFile, true))
+            {
+                writer.WriteLine(Environment.NewLine + fileDialog.FileName);
+                writer.Close();
+            }
             Tools.ExportToPng(fileDialog.FileName, DrawingSheet);
         }
 

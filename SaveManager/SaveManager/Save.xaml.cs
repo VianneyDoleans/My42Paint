@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SaveManager
@@ -8,6 +10,14 @@ namespace SaveManager
     /// </summary>
     public partial class Save : UserControl
     {
+        public event EventHandler del;
+
+        private void delete(object sender, RoutedEventArgs e)
+        {
+            if (del != null) del(this, EventArgs.Empty);
+            Console.WriteLine("delete");
+        }
+
         public Save()
         {
             InitializeComponent();
