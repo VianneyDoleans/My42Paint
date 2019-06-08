@@ -241,7 +241,13 @@ namespace My42Paint.Source
 
         private void Export_OnClick(object sender, RoutedEventArgs e)
         {
-            Tools.ExportToPng(new Uri(@"../../test/test.png", UriKind.Relative), DrawingSheet);
+            var fileDialog = new SaveFileDialog();
+            fileDialog.Filter = @"PNG Image (*.png)|*.png";
+            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            fileDialog.ShowDialog();
+            if (fileDialog.FileName == null)
+                return;
+            Tools.ExportToPng(fileDialog.FileName, DrawingSheet);
         }
 
         private void SaveChild(string directoryPath, string directoryName)
