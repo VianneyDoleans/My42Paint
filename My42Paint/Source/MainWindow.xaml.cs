@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Path = System.IO.Path;
+using XamlReader = System.Windows.Markup.XamlReader;
+using XamlWriter = System.Windows.Markup.XamlWriter;
 
 namespace My42Paint.Source
 {
@@ -167,7 +173,6 @@ namespace My42Paint.Source
                     }
                 }
             }
-
             // Reset color when not using brush
             if (_currentInkCanvasTools != InkCanvasTools.Brush)
                 DrawingSheet.DefaultDrawingAttributes.Color = _prevColor;
@@ -237,6 +242,125 @@ namespace My42Paint.Source
         private void Export_OnClick(object sender, RoutedEventArgs e)
         {
             Tools.ExportToPng(new Uri(@"../../test/test.png", UriKind.Relative), DrawingSheet);
+        }
+
+        private void SaveChild(string directoryPath, string directoryName)
+        {
+            DrawingSheet.UpdateLayout();
+            var fsPos = new StreamWriter(directoryPath + "\\" + directoryName + "_pos.txt");
+            for (var i = 0; i < DrawingSheet.Children.Count; i++)
+            {
+                Tools.ExportToPng(directoryPath + "\\" + directoryName + "_child" + i + ".png", DrawingSheet.Children[i] as Image);
+                var pos = directoryName + "_child" + i + " " + InkCanvas.GetTop(DrawingSheet.Children[i]) + " " + InkCanvas.GetLeft(DrawingSheet.Children[i]);
+                fsPos.WriteLine(pos);
+            }
+            fsPos.Close();
+        }
+        
+
+        private void Save_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            var res = dialog.ShowDialog();
+            string dialogSelectedPath = null;
+            if (res == System.Windows.Forms.DialogResult.OK)
+                dialogSelectedPath = dialog.SelectedPath;
+            if (dialogSelectedPath == null)
+                return;
+            var directoryName = Path.GetFileName(Path.GetDirectoryName(dialogSelectedPath));
+            var fs = File.Open(dialogSelectedPath + "\\" + directoryName + "_ink.xaml", FileMode.Create);
+            XamlWriter.Save(DrawingSheet, fs);
+            fs.Close();
+            DrawingSheet.UpdateLayout();
+            SaveChild(dialogSelectedPath, directoryName);
+        }
+
+        private static void ErasePosTxtFromList(List<string> filesName)
+        {
+            string txtFile = null;
+            foreach (var fileName in filesName)
+            {
+                if (!fileName.Contains("_pos.txt") || !Path.GetExtension(fileName).Equals(".txt")) continue;
+                txtFile = fileName;
+                break;
+            }
+            filesName.Remove(txtFile);
+        }
+
+        private void LoadChild(List<string> filesName)
+        {
+            string fileTxt = null; 
+            foreach (var fileName in filesName)
+            {
+                if (!fileName.Contains("_pos.txt") || !Path.GetExtension(fileName).Equals(".txt")) continue;
+                fileTxt = fileName;
+                break;
+            }
+            if (fileTxt == null)
+                return;
+            var file = new StreamReader(fileTxt);
+            ErasePosTxtFromList(filesName);
+            foreach (var filename in filesName)
+            {
+                if (filename.Contains(".png") && Path.GetExtension(filename).Equals(".png"))
+                {
+                    var positions = file.ReadLine();
+                    if (positions != null)
+                    {
+                        var pos = positions.Split(' ');
+                        var childSaved = new Image
+                        {
+                            Source = new BitmapImage(new Uri(filename, UriKind.Absolute))
+                        };
+                        childSaved.SetValue(InkCanvas.TopProperty, Convert.ToDouble(pos[1]));
+                        childSaved.SetValue(InkCanvas.LeftProperty, Convert.ToDouble(pos[2]));
+                        DrawingSheet.Children.Add(childSaved);
+                    }
+                }
+            }
+            file.Close();
+        }
+
+        private void LoadInkCanvas(string inkFileName, List<string> filesName)
+        {
+            var fs = File.Open(inkFileName, FileMode.Open, FileAccess.Read);
+            var savedCanvas = XamlReader.Load(fs) as InkCanvas;
+            fs.Close();
+            if (savedCanvas != null)
+                DrawingSheet.Strokes.Add(savedCanvas.Strokes);
+            filesName.Remove(inkFileName);
+        }
+
+        private void Load_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            var res = dialog.ShowDialog();
+            string directoryName = null;
+            if (res == System.Windows.Forms.DialogResult.OK)
+                directoryName = dialog.SelectedPath;
+            if (directoryName == null)
+                return;
+            var filesName = new List<string>(Directory.GetFiles(directoryName));            
+            string inkFileName = null;
+            
+            foreach (var fileName in filesName)
+            {
+                if (!fileName.Contains("_ink.xaml") || !Path.GetExtension(fileName).Equals(".xaml")) continue;
+                inkFileName = fileName;
+                break;
+            }
+            if (inkFileName == null) return;
+            LoadInkCanvas(inkFileName, filesName);
+            LoadChild(filesName);
+        }
+
+        private void New_OnClick(object sender, RoutedEventArgs e)
+        {
+            DrawingSheet.Children.Clear();
+            DrawingSheet.Strokes.Clear();
+            BrushButton.IsChecked = true;
+            _currentInkCanvasTools = InkCanvasTools.Brush;
+            DrawingSheet.EditingMode = InkCanvasEditingMode.Ink;
         }
     }
 }

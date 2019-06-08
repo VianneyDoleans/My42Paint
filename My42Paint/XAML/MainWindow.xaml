@@ -24,6 +24,14 @@
         </Menu>
 
         <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
+            <RadioButton Name="New"
+                         Content="New"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="New_OnClick" />
+
             <RadioButton Name="BrushButton"
                          Content="Brush"
                          Height="50"
@@ -65,7 +73,7 @@
                          GroupName="ShapeGroup"
                          Click="LineButton_OnClick" />
             
-            <RadioButton Name="Select"
+            <RadioButton Name="SelectButton"
                          Content="Select"
                          Height="50"
                          Width="80"
@@ -73,7 +81,7 @@
                          GroupName="ShapeGroup"
                          Click="Select_OnClick" />
             
-            <RadioButton Name="Image"
+            <RadioButton Name="LoadImageButton"
                          Content="Image"
                          Height="50"
                          Width="80"
@@ -81,7 +89,7 @@
                          GroupName="ShapeGroup"
                          Click="LoadImage" />
             
-            <RadioButton Name="Export"
+            <RadioButton Name="ExportButton"
                          Content="Export"
                          Height="50"
                          Width="80"
@@ -89,6 +97,21 @@
                          GroupName="ShapeGroup"
                          Click="Export_OnClick" />
             
+            <RadioButton Name="SaveButton"
+                         Content="Save"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="Save_OnClick" />
+            
+            <RadioButton Name="LoadButton"
+                         Content="Load"
+                         Height="50"
+                         Width="80"
+                         BorderBrush="Black"
+                         GroupName="ShapeGroup"
+                         Click="Load_OnClick" />1
         </ToolBar>
 
         <ToolBar Name="ColorToolbar" DockPanel.Dock="Right">

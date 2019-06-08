@@ -2,11 +2,13 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 using Size = System.Windows.Size;
 
 namespace My42Paint.Source
@@ -58,5 +60,17 @@ namespace My42Paint.Source
             }
         }
 
+        public static void ExportToPng(string path, Image image)
+        {
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+            if (File.Exists(path))
+                return;
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                encoder.Save(stream);
+                stream.Close();
+            }
+        }
     }
 }
