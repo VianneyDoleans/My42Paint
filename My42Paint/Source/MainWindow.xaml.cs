@@ -232,9 +232,17 @@ namespace My42Paint.Source
      
         private void LoadImage(object sender, RoutedEventArgs e)
         {
+            var openFile = new OpenFileDialog();
+            openFile.Multiselect = false;
+            openFile.CheckFileExists = true;
+            openFile.Filter = @"PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg";
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            openFile.ShowDialog();
+            if (openFile.FileName == null || openFile.FileName.Equals(""))
+                return;
             var image = new Image
             {
-                Source = new BitmapImage(new Uri(@"../../Assets/Images/ak47.jpg", UriKind.Relative))
+                Source = new BitmapImage(new Uri(openFile.FileName, UriKind.Absolute))
             };
             DrawingSheet.Children.Add(image);
         }
@@ -245,7 +253,7 @@ namespace My42Paint.Source
             fileDialog.Filter = @"PNG Image (*.png)|*.png";
             fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             fileDialog.ShowDialog();
-            if (fileDialog.FileName == null)
+            if (fileDialog.FileName == null || fileDialog.FileName.Equals(""))
                 return;
             Tools.ExportToPng(fileDialog.FileName, DrawingSheet);
         }
@@ -267,6 +275,7 @@ namespace My42Paint.Source
         private void Save_OnClick(object sender, RoutedEventArgs e)
         {
             var dialog = new FolderBrowserDialog();
+            dialog.ShowNewFolderButton = true;
             var res = dialog.ShowDialog();
             string dialogSelectedPath = null;
             if (res == System.Windows.Forms.DialogResult.OK)
@@ -340,6 +349,7 @@ namespace My42Paint.Source
         private void Load_OnClick(object sender, RoutedEventArgs e)
         {
             var dialog = new FolderBrowserDialog();
+            dialog.ShowNewFolderButton = false;
             var res = dialog.ShowDialog();
             string directoryName = null;
             if (res == System.Windows.Forms.DialogResult.OK)
