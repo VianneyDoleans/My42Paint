@@ -23,16 +23,21 @@ namespace SaveManager
     {
         String selectedFile;
 
+        public event EventHandler<EventArgs> saveFile;
+        public event EventHandler<EventArgs> openFile;
+        public event EventHandler<EventArgs> newFile;
+        public event EventHandler<EventArgs> back;
+        public event EventHandler<EventArgs> export;
 
         public SaveManage()
         {
             InitializeComponent();
             ReadFileSaves("C:/Users/vianneydoleans/Documents/SaveManager-My42Paint/SaveManager/saves.txt");
-            localMenu.printFile += new EventHandler(PrintFile);
             localMenu.newFile += new EventHandler(NewFile);
             localMenu.openFile += new EventHandler(OpenFile);
             localMenu.back += new EventHandler(btnOpenScreen1_Clicked);
             localMenu.export += new EventHandler(Export);
+            localMenu.saveFile += new EventHandler(SaveFile);
         }
 
 
@@ -62,33 +67,32 @@ namespace SaveManager
 
         protected void OpenFile(object sender, EventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+            /*Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
             Nullable<bool> result = openFileDlg.ShowDialog();
             if (result == true)
             {
                 String path = openFileDlg.FileName;
-            }
-
+            }*/
+            openFile?.Invoke(this, e);
             Console.WriteLine("parent open");
         }
 
         private void NewFile(object sender, EventArgs e)
         {
             Console.WriteLine("parent New");
+            newFile?.Invoke(this, e);
+        }
+
+        public void SaveFile(object sender, EventArgs e)
+        {
+            Console.WriteLine("parent save");
+            saveFile?.Invoke(this, e);
         }
 
         private void Export(object sender, EventArgs e)
         {
             Console.WriteLine("parent export");
-        }
-
-        private void PrintFile(object sender, EventArgs e)
-        {
-            /*PrintDialog printDialog = new PrintDialog();
-            if (printDialog.ShowDialog() == true)
-            {
-                printDialog.PrintVisual(selectedFile, "My First Print Job");
-            }*/
+            export?.Invoke(this, e);
         }
 
         public event EventHandler<EventArgs> OpenScreen1;

@@ -32,7 +32,32 @@ namespace My42Paint.Source
             SaveManage = new SaveManager.SaveManage();
             Paint.OpenScreen1 += new EventHandler<EventArgs>(MyUserControl_OpenScreen1);
             SaveManage.OpenScreen1 += new EventHandler<EventArgs>(MyUserControl_OpenScreen2);
+            SaveManage.openFile += new EventHandler<EventArgs>(open);
+            SaveManage.newFile += new EventHandler<EventArgs>(newFile);
+            SaveManage.saveFile += new EventHandler<EventArgs>(save);
+            SaveManage.export += new EventHandler<EventArgs>(Export);
+
             brdMain.Child = Paint;
+        }
+
+        void Export(object sender, EventArgs e)
+        {
+            Paint.Export();
+        }
+
+        void newFile(object sender, EventArgs e)
+        {
+            Paint.NewPaint();
+        }
+
+        void open(object sender, EventArgs e)
+        {
+            Paint.Load();
+        }
+
+        void save(object sender, EventArgs e)
+        {
+            Paint.Save();
         }
 
         void MyUserControl_OpenScreen1(object sender, EventArgs e)

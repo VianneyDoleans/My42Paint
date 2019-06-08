@@ -20,6 +20,7 @@ namespace SaveManager
     /// </summary>
     public partial class Menu : UserControl
     {
+        public event EventHandler saveFile;
         public event EventHandler printFile;
         public event EventHandler openFile;
         public event EventHandler newFile;
@@ -35,6 +36,12 @@ namespace SaveManager
         {
             if (openFile != null) openFile(this, EventArgs.Empty);
             Console.WriteLine("open");
+        }
+
+        private void SaveFile(object sender, RoutedEventArgs e)
+        {
+            if (openFile != null) saveFile(this, EventArgs.Empty);
+            Console.WriteLine("save");
         }
 
         private void NewFile(object sender, RoutedEventArgs e)

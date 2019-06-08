@@ -23,6 +23,7 @@ namespace My42Paint
     /// </summary>
     public partial class Paint : System.Windows.Controls.UserControl
     {
+        public int a;
         private ShapeDrawer _shapeDrawer;
         private InkCanvasTools _currentInkCanvasTools = InkCanvasTools.Brush;
         private Point _start;
@@ -251,7 +252,7 @@ namespace My42Paint
         }
 
 
-        private void export()
+        public void Export()
         {
             var fileDialog = new SaveFileDialog();
             fileDialog.Filter = @"PNG Image (*.png)|*.png";
@@ -280,7 +281,7 @@ namespace My42Paint
         }
 
 
-        private void save()
+        public void Save()
         {
             var dialog = new FolderBrowserDialog();
             dialog.ShowNewFolderButton = true;
@@ -362,7 +363,7 @@ namespace My42Paint
             filesName.Remove(inkFileName);
         }
 
-        private void load()
+        public void Load()
         {
             var dialog = new FolderBrowserDialog();
             dialog.ShowNewFolderButton = false;
@@ -390,7 +391,7 @@ namespace My42Paint
         {
         }
 
-        private void NewPaint()
+        public void NewPaint()
         {
             DrawingSheet.Children.Clear();
             DrawingSheet.Strokes.Clear();
