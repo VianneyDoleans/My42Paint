@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Save.Save"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Save"
+             mc:Ignorable="d" 
+             d:DesignHeight="283.401" d:DesignWidth="295.674">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="150" Margin="18,35,0,0" VerticalAlignment="Top" Width="260"/>
+        <TextBox x:Name="Path" HorizontalAlignment="Left" Height="23" Margin="10,219,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="276" TextChanged="TextBox_TextChanged" RenderTransformOrigin="0.498,1.768"/>
+        <Label x:Name="Name" Content="Name" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Width="276"/>
+        <Button x:Name="deleteButton" Content="Delete" HorizontalAlignment="Left" Margin="211,10,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</UserControl>

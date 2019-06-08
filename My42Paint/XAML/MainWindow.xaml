@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:SaveManager="clr-namespace:SaveManager;assembly=SaveManager"
         mc:Ignorable="d"
         Title="MainWindow"
         Width="1200"
@@ -13,8 +14,30 @@
         MaxWidth="1920"
         MaxHeight="1080">
 
+
+    <Window.Resources>
+        <Storyboard x:Key="sbShowLeftMenu" >
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-1150,0,0,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbHideLeftMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-1150,0,0,0" AccelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+
+    </Window.Resources>
+
     <DockPanel>
+
+        <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal" Margin="-1150,0,0,0">
+            <SaveManager:SaveManage BorderBrush="#AF1719" BorderThickness="1" Width="1150"></SaveManager:SaveManage>
+            <Grid>
+                <Button Name="btnLeftMenuHide" Width="48" Height="48" Click="btnLeftMenuHide_Click" Content="Hide" Visibility="Hidden"/>
+                <Button Name="btnLeftMenuShow" Width="48" Height="48" Click="btnLeftMenuShow_Click" Content="Show"/>
+            </Grid>
+        </StackPanel>
+
         <Menu DockPanel.Dock="Top" Height="20">
+            <MenuItem Header=" File" Click="SaveManager_OnClick">
+            </MenuItem>
             <MenuItem Header="_Filters">
                 <MenuItem Header="_Black and White" Click="BlackAndWhiteFilter_OnClick"/>
                 <MenuItem Header="_Grayscale" Click="GrayscaleFilter_OnClick"/>
@@ -24,13 +47,6 @@
         </Menu>
 
         <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
-            <RadioButton Name="New"
-                         Content="New"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="New_OnClick" />
 
             <RadioButton Name="BrushButton"
                          Content="Brush"
@@ -80,7 +96,7 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="Select_OnClick" />
-            
+
             <RadioButton Name="LoadImageButton"
                          Content="Image"
                          Height="50"
@@ -88,30 +104,7 @@
                          BorderBrush="Black"
                          GroupName="ShapeGroup"
                          Click="LoadImage" />
-            
-            <RadioButton Name="ExportButton"
-                         Content="Export"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="Export_OnClick" />
-            
-            <RadioButton Name="SaveButton"
-                         Content="Save"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="Save_OnClick" />
-            
-            <RadioButton Name="LoadButton"
-                         Content="Load"
-                         Height="50"
-                         Width="80"
-                         BorderBrush="Black"
-                         GroupName="ShapeGroup"
-                         Click="Load_OnClick" />1
+
         </ToolBar>
 
         <ToolBar Name="ColorToolbar" DockPanel.Dock="Right">

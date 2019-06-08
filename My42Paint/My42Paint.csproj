@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.1.1345, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignThemes.2.5.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -68,6 +74,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SaveManagerWindow\SaveManagerWindow.xaml.cs">
+      <DependentUpon>SaveManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Source\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -109,7 +118,7 @@
   <ItemGroup>
     <Folder Include="Assets\Songs\" />
     <Folder Include="Assets\Videos\" />
-    <Folder Include="test" />
+    <Folder Include="test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\ak47.jpg">
@@ -119,6 +128,10 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SaveManagerWindow\SaveManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XAML\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -129,6 +142,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaveManager\SaveManager\SaveManager.csproj">
+      <Project>{023ace2a-3266-4fc0-be3c-28d83e202d45}</Project>
+      <Name>SaveManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

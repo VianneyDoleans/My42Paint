@@ -13,6 +13,7 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Path = System.IO.Path;
 using XamlReader = System.Windows.Markup.XamlReader;
 using XamlWriter = System.Windows.Markup.XamlWriter;
+using System.Windows.Media.Animation;
 
 namespace My42Paint.Source
 {
@@ -247,7 +248,8 @@ namespace My42Paint.Source
             DrawingSheet.Children.Add(image);
         }
 
-        private void Export_OnClick(object sender, RoutedEventArgs e)
+
+        private void export()
         {
             var fileDialog = new SaveFileDialog();
             fileDialog.Filter = @"PNG Image (*.png)|*.png";
@@ -256,6 +258,10 @@ namespace My42Paint.Source
             if (fileDialog.FileName == null || fileDialog.FileName.Equals(""))
                 return;
             Tools.ExportToPng(fileDialog.FileName, DrawingSheet);
+        }
+
+        private void Export_OnClick(object sender, RoutedEventArgs e)
+        {
         }
 
         private void SaveChild(string directoryPath, string directoryName)
@@ -272,7 +278,7 @@ namespace My42Paint.Source
         }
         
 
-        private void Save_OnClick(object sender, RoutedEventArgs e)
+        private void save()
         {
             var dialog = new FolderBrowserDialog();
             dialog.ShowNewFolderButton = true;
@@ -288,6 +294,14 @@ namespace My42Paint.Source
             fs.Close();
             DrawingSheet.UpdateLayout();
             SaveChild(dialogSelectedPath, directoryName);
+        }
+
+        private void Save_OnClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void Print_OnClick(object sender, RoutedEventArgs e)
+        {
         }
 
         private static void ErasePosTxtFromList(List<string> filesName)
@@ -346,7 +360,7 @@ namespace My42Paint.Source
             filesName.Remove(inkFileName);
         }
 
-        private void Load_OnClick(object sender, RoutedEventArgs e)
+        private void load()
         {
             var dialog = new FolderBrowserDialog();
             dialog.ShowNewFolderButton = false;
@@ -356,9 +370,9 @@ namespace My42Paint.Source
                 directoryName = dialog.SelectedPath;
             if (directoryName == null)
                 return;
-            var filesName = new List<string>(Directory.GetFiles(directoryName));            
+            var filesName = new List<string>(Directory.GetFiles(directoryName));
             string inkFileName = null;
-            
+
             foreach (var fileName in filesName)
             {
                 if (!fileName.Contains("_ink.xaml") || !Path.GetExtension(fileName).Equals(".xaml")) continue;
@@ -370,7 +384,11 @@ namespace My42Paint.Source
             LoadChild(filesName);
         }
 
-        private void New_OnClick(object sender, RoutedEventArgs e)
+        private void Load_OnClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void NewPaint()
         {
             DrawingSheet.Children.Clear();
             DrawingSheet.Strokes.Clear();
@@ -378,5 +396,42 @@ namespace My42Paint.Source
             _currentInkCanvasTools = InkCanvasTools.Brush;
             DrawingSheet.EditingMode = InkCanvasEditingMode.Ink;
         }
+
+        private void New_OnClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void SaveManager_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLeftMenuHide_Click(object sender, RoutedEventArgs e)
+        {
+            ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
+        }
+
+        private void btnLeftMenuShow_Click(object sender, RoutedEventArgs e)
+        {
+            ShowHideMenu("sbShowLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
+        }
+
+        private void ShowHideMenu(string Storyboard, System.Windows.Controls.Button btnHide, System.Windows.Controls.Button btnShow, StackPanel pnl)
+        {
+            Storyboard sb = Resources[Storyboard] as Storyboard;
+            sb.Begin(pnl);
+
+            if (Storyboard.Contains("Show"))
+            {
+                btnHide.Visibility = System.Windows.Visibility.Visible;
+                btnShow.Visibility = Visibility.Hidden;
+            }
+            else if (Storyboard.Contains("Hide"))
+            {
+                btnHide.Visibility = System.Windows.Visibility.Hidden;
+                btnShow.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
     }
 }
