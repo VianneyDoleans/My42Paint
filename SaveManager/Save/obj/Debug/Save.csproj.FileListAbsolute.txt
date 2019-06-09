@@ -1,0 +1,4 @@
+C:\Users\vianneydoleans\Documents\SaveManager-My42Paint\SaveManager\Save\obj\Debug\Save.csprojAssemblyReference.cache
+C:\Users\vianneydoleans\Documents\SaveManager-My42Paint\SaveManager\Save\obj\Debug\Save.g.cs
+C:\Users\vianneydoleans\Documents\SaveManager-My42Paint\SaveManager\Save\obj\Debug\Save_MarkupCompile.cache
+C:\Users\vianneydoleans\Documents\SaveManager-My42Paint\SaveManager\Save\obj\Debug\Save_MarkupCompile.lref

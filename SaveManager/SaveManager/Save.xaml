@@ -4,13 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SaveManager">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"></RowDefinition>
-            <RowDefinition Height="0.6*"></RowDefinition>
-            <RowDefinition Height="0.2*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Image x:Name="image"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <Label x:Name="name" Grid.Column="0" Grid.Row="2" Content="Name" Margin="10,10,0,0" VerticalAlignment="Top"/>
-    </Grid>
+    <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="Black" BorderThickness="2">
+        <Grid Background="Azure">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"></RowDefinition>
+                <RowDefinition Height="0.6*"></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image x:Name="image"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Label x:Name="name" Grid.Column="0" Grid.Row="2" Content="Name" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        </Grid>
+    </Border>
 </UserControl>

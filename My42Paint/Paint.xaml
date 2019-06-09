@@ -23,6 +23,7 @@
         <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
 
             <RadioButton Name="BrushButton"
+                         Background="CadetBlue"
                          Content="Brush"
                          Height="50"
                          Width="80"
@@ -32,6 +33,7 @@
                          IsChecked="True" />
 
             <RadioButton Name="EraserButton"
+                         Background="CadetBlue"
                          Content="Eraser"
                          Height="50"
                          Width="80"
@@ -40,6 +42,7 @@
                          Click="EraserButton_OnClick" />
 
             <RadioButton Name="ColorPickerButton"
+                         Background="CadetBlue"
                          Content="Color Picker"
                          Height="50"
                          Width="80"
@@ -48,6 +51,7 @@
                          Click="ColorPickerButton_OnClick" />
 
             <RadioButton Name="RectangleButton"
+                         Background="CadetBlue"
                          Content="Rectangle"
                          Height="50"
                          Width="80"
@@ -56,6 +60,7 @@
                          Click="RectangleButton_OnClick" />
 
             <RadioButton Name="LineButton"
+                         Background="CadetBlue"
                          Content="Line"
                          Height="50"
                          Width="80"
@@ -64,6 +69,7 @@
                          Click="LineButton_OnClick" />
 
             <RadioButton Name="SelectButton"
+                         Background="CadetBlue"
                          Content="Select"
                          Height="50"
                          Width="80"
@@ -72,6 +78,8 @@
                          Click="Select_OnClick" />
 
             <RadioButton Name="LoadImageButton"
+                         
+                         
                          Content="Image"
                          Height="50"
                          Width="80"

@@ -87,9 +87,6 @@
     </Compile>
     <Compile Include="Source\ShapeDrawer.cs" />
     <Compile Include="Source\Tools.cs" />
-    <Compile Include="Windows.xaml.cs">
-      <DependentUpon>Windows.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -132,10 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Paint.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

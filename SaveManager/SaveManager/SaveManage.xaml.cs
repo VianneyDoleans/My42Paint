@@ -72,6 +72,13 @@ namespace SaveManager
                 Save save = new Save();
                 save.name.Content = path;//System.IO.Path.GetFileNameWithoutExtension(path);
                 save.image.Source = new BitmapImage(new Uri(path, UriKind.Absolute));
+                Thickness m = save.Margin;
+                m.Left = 10;
+                m.Right = 10;
+                m.Top = 10;
+                m.Bottom = 10;
+                save.Margin = m;
+
                 SavesGrid.Children.Add(save);
             }
             catch(Exception)
