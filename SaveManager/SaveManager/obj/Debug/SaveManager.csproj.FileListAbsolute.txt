@@ -34,3 +34,7 @@ C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\obj\Debug\Sa
 C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\obj\Debug\SaveManager.csproj.CoreCompileInputs.cache
 C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\obj\Debug\SaveManager.dll
 C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\obj\Debug\SaveManager.pdb
+C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\bin\Debug\GiveResources.dll
+C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\bin\Debug\GiveResources.pdb
+C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\obj\Debug\SaveManager.csproj.CopyComplete
+C:\Users\vianneydoleans\Documents\My42Paint\SaveManager\SaveManager\bin\Debug\Resources\saves.txt

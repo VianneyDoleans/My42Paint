@@ -45,12 +45,13 @@ namespace SaveManager
         public void ReadFileSaves()
         {
             SavesGrid.Children.Clear();
-           // TODO : change path here
-             String pathFile = @"Save\saves.txt";
+
+
+            GiveResources.Ressources ressource = new GiveResources.Ressources();
+            String pathFile = GiveResources.Ressources.GetFile();
             Console.WriteLine("read file");
             using (StreamReader file = new StreamReader(pathFile))
             {
-                Debug.WriteLine("pass here");
                 string ln;
 
                 while ((ln = file.ReadLine()) != null)

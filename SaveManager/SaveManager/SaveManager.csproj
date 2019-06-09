@@ -95,9 +95,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Save\saves.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\..\GiveResources\GiveResources.csproj">
+      <Project>{424d67b4-8636-4506-9150-ad0c67482080}</Project>
+      <Name>GiveResources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

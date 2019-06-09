@@ -103,7 +103,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -121,14 +121,12 @@
     <Folder Include="test\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\SaveManager\SaveManager\Save\saves.txt">
-      <Link>saves.txt</Link>
-    </Content>
     <Content Include="Assets\Images\ak47.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\paint.png" />
     <Content Include="readme.txt" />
+    <None Include="Resources\saves.txt.txt" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Paint.xaml">
@@ -147,6 +145,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GiveResources\GiveResources.csproj">
+      <Project>{424d67b4-8636-4506-9150-ad0c67482080}</Project>
+      <Name>GiveResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SaveManager\SaveManager\SaveManager.csproj">
       <Project>{023ace2a-3266-4fc0-be3c-28d83e202d45}</Project>
       <Name>SaveManager</Name>

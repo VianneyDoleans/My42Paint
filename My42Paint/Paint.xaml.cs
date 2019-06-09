@@ -261,7 +261,7 @@ namespace My42Paint
             if (fileDialog.FileName == null || fileDialog.FileName.Equals(""))
                 return;
             // TODO change path here
-            var pathFile = @"..\..\..\SaveManager\SaveManager\Save\saves.txt";
+            var pathFile = GiveResources.Ressources.GetFile();
             using (var writer = new StreamWriter(pathFile, true))
             {
                 writer.WriteLine(fileDialog.FileName);
