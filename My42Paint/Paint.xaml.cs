@@ -261,10 +261,10 @@ namespace My42Paint
             if (fileDialog.FileName == null || fileDialog.FileName.Equals(""))
                 return;
             // TODO change path here
-            String pathFile = "C:/Users/vianneydoleans/Documents/My42Paint/SaveManager/saves.txt";
+            var pathFile = @"..\..\..\SaveManager\SaveManager\Save\saves.txt";
             using (var writer = new StreamWriter(pathFile, true))
             {
-                writer.WriteLine(Environment.NewLine + fileDialog.FileName);
+                writer.WriteLine(fileDialog.FileName);
                 writer.Close();
             }
             Tools.ExportToPng(fileDialog.FileName, DrawingSheet);

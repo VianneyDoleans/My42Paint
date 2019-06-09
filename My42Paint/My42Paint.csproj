@@ -121,6 +121,9 @@
     <Folder Include="test\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\SaveManager\SaveManager\Save\saves.txt">
+      <Link>saves.txt</Link>
+    </Content>
     <Content Include="Assets\Images\ak47.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

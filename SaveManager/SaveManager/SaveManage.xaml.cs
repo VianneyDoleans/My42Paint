@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -45,16 +46,17 @@ namespace SaveManager
         {
             SavesGrid.Children.Clear();
            // TODO : change path here
-           String pathFile = "C:/Users/vianneydoleans/Documents/My42Paint/SaveManager/saves.txt";
+             String pathFile = @"Save\saves.txt";
             Console.WriteLine("read file");
             using (StreamReader file = new StreamReader(pathFile))
             {
+                Debug.WriteLine("pass here");
                 string ln;
 
                 while ((ln = file.ReadLine()) != null)
                 {
                     if (ln != null || ln != "\n")
-                        addItem(ln);
+                        AddItem(ln);
                 }
                 file.Close();
             }
@@ -65,10 +67,11 @@ namespace SaveManager
 
         }
 
-        public void addItem(string path)
+        public void AddItem(string path)
         {
             try
             {
+                Debug.WriteLine("pass there");
                 Save save = new Save();
                 save.name.Content = path;//System.IO.Path.GetFileNameWithoutExtension(path);
                 save.image.Source = new BitmapImage(new Uri(path, UriKind.Absolute));
@@ -81,9 +84,9 @@ namespace SaveManager
 
                 SavesGrid.Children.Add(save);
             }
-            catch(Exception)
-            {
-
+            catch(Exception e)
+            {    
+                Debug.WriteLine(e.StackTrace);
             }
             //save.del += new EventHandler(delete, path);
             //saves.Add(, save);
