@@ -1,23 +1,25 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace SaveManager
+namespace Saves
 {
     /// <summary>
-    /// Interaction logic for Save.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
     public partial class Save : UserControl
     {
-        public event EventHandler del;
-
-        private void delete(object sender, RoutedEventArgs e)
-        {
-            if (del != null) del(this, EventArgs.Empty);
-            Console.WriteLine("delete");
-        }
-
         public Save()
         {
             InitializeComponent();

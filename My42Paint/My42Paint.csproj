@@ -74,9 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Paint.xaml.cs">
-      <DependentUpon>Paint.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Source\Paint.xaml.cs" />
     <Compile Include="Source\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -126,14 +124,20 @@
     </Content>
     <Content Include="Assets\Images\paint.png" />
     <Content Include="readme.txt" />
-    <None Include="Resources\saves.txt.txt" />
+    <Resource Include="Resources\line.png" />
+    <Resource Include="Resources\select.png" />
+    <Resource Include="Resources\picture.png" />
+    <Resource Include="Resources\color-picker.png" />
+    <Resource Include="Resources\rectangle.png" />
+    <Resource Include="Resources\eraser.png" />
+    <Resource Include="Resources\brush.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Paint.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="XAML\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAML\Paint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
