@@ -13,5 +13,11 @@ namespace My42Paint
     /// </summary>
     public partial class App : Application
     {
+
+        App()
+        {
+            //SaveManagerWindow.SaveManagerWindow subWindow = new SaveManagerWindow.SaveManagerWindow();
+            //subWindow.Show();
+        }
     }
 }
