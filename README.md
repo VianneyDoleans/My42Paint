@@ -32,8 +32,8 @@ This project is a student project realized for ICT software module, in Chung Ang
   
   ## Screenshots
   
-  ![screenshot](./screenshots/ColorPalette.PNG)
-  ![screenshot](./screenshots/OptionMenu.PNG)
-  ![screenshot](./screenshots/OptionMenu2.PNG)
-  ![screenshot](./screenshots/SelectionDraw.PNG)
+![Screenshot](./Screenshots/SelectionDraw.PNG)
+![Screenshot](./Screenshots/ColorPalette.PNG)
+![Screenshot](./Screenshots/OptionMenu.PNG)
+![Screenshot](./Screenshots/OptionMenu2.PNG)
 
