@@ -1,6 +1,6 @@
-# My42Paint
+# WPFPaint
 
-My42Paint is a paint software, for realizing small creation.
+WPFPaint is a paint software, for realizing small creation.
 
 ## Project
 This project is a student project realized for ICT software module, in Chung Ang University, South Korea, Seoul, June 2019.
